@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Revel Manager Virtual Beacon</string>
+    <string name="title_activity_reg_edit_beacons">reg_edit_beacons</string>
+    <string name="name">Name: </string>
+    <string name="type">Type: </string>
+    <string name="type1">QR Beacon</string>
+    <string name="type2">AR Beacon</string>
+    <string name="apiKey">API KEY</string>
+    <string name="connect">Connect</string>
+    <string name="prompt_password">API KEY</string>
+    <string name="apiTitle">API KEY:</string>
+    <string name="save">SAVE</string>
+    <string name="share">SHARE</string>
+    <string-array name="type">
+        <item>QR Beacon</item>
+        <item>Image Beacon</item>
+    </string-array>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="@string/apiTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/settingsApiKey"
+        android:layout_weight="1"
+        android:hint="@string/apiKey"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp" />
+
+</LinearLayout>
