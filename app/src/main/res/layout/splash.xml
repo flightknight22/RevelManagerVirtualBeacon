@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/revelBlue"
@@ -13,27 +12,28 @@
         android:id="@+id/textView"
         android:src="@drawable/revel_logo"
         android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
-        android:textSize="36sp"
+        android:textSize="34sp"
         android:textAlignment="center"
-        android:paddingTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:layout_below="@+id/imageView3"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
     <ImageView
         android:src="@drawable/revel_logo"
         android:id="@+id/imageView3"
         android:scaleType="fitCenter"
-        android:layout_weight="0.45"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:layout_height="220dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="Revel Symbol"/>
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,52 +41,42 @@
         android:imeActionId="@+id/login"
         android:imeOptions="actionUnspecified"
         android:maxLines="1"
-        android:singleLine="true"
         android:textColor="#ffffffff"
         android:textColorHint="#ffffffff"
         android:typeface="monospace" android:gravity="center_horizontal"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="22dp"
         android:paddingTop="30dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
+
     <ViewSwitcher
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/viewSwitcher"
-        android:layout_below="@id/login">
+        android:measureAllChildren="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="65dp">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:visibility="visible" />
+
+        <Button
+            android:text="@string/connect"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/progressBar3"
-                android:visibility="visible"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:text="@string/connect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/connect"
-                android:layout_weight="1"
-                android:layout_below="@+id/login"
-                android:layout_alignParentStart="true"
-                android:onClick="checkApi" />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:id="@+id/connect"
+            android:onClick="checkApi"
+            android:background="@drawable/splash_button_grey"
+            android:textSize="24sp" />
 
     </ViewSwitcher>
+
 </RelativeLayout>

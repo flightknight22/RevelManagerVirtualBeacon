@@ -1,4 +1,4 @@
-package com.reveldigital.revelmanagervirtualbeacon.vuforia;
+package com.reveldigital.revelmanagervirtualbeacon.Vuforia;
 
 import org.apache.commons.codec.android.binary.Base64;
 import org.apache.commons.codec.android.digest.DigestUtils;

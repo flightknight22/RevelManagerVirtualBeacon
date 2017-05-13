@@ -9,9 +9,10 @@
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="10dp">
+        card_view:contentPadding="10dp"
+        card_view:cardBackgroundColor="@color/white"
+        android:layout_marginBottom="7dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -32,15 +33,17 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:capitalize="words"
                     android:text="Fake Beacon Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/name"
-                    android:textAlignment="center"
+                    android:textAlignment="viewStart"
                     android:textStyle="normal|bold"
                     android:textSize="24sp"
                     android:padding="5dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/greyBlack" />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -52,17 +55,20 @@
                         android:text="Type:"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".4"
+                        android:layout_weight=".01"
                         android:textStyle="normal|bold"
-                        android:textAlignment="center" />
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/greyBlack" />
 
                     <TextView
                         android:text="Virtual Beacon Type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".5"
+                        android:layout_weight=".09"
                         android:id="@+id/type"
-                        android:textStyle="normal|bold" />
+                        android:textStyle="normal|bold"
+                        android:textAlignment="viewStart"
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
 
             </LinearLayout>

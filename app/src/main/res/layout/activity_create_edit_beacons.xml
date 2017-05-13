@@ -1,44 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_create_edit_beacons"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.reveldigital.revelmanagervirtualbeacon.Activities.create_edit_beacons">
+    android:animateLayoutChanges="true"
+    tools:context="com.reveldigital.revelmanagervirtualbeacon.Activities.CreateEditBeaconsActivity"
+    android:background="@color/white">
+
+    <ViewSwitcher
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:measureAllChildren="false"
+        android:id="@+id/buttonProgress"
+        android:layout_height="50dp">
+
+        <Button
+            android:layout_gravity="center"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/save_edit"
+            android:onClick="save_edit_beacon"
+            android:background="@drawable/splash_button"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Working..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textStyle="normal|bold"
+                android:textSize="18sp" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBarButton"
+                android:layout_gravity="center"
+                android:focusable="false"
+                 />
+
+        </LinearLayout>
+
+    </ViewSwitcher>
 
     <ViewSwitcher
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:id="@+id/dialogSwitch"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:measureAllChildren="false"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/cardBackground">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="185dp"
-                    android:layout_height="212dp"
-                    android:id="@+id/imageView2"
-                    android:src="@drawable/ad_hawk_mascot"
-                    android:scaleType="fitCenter"
-                    android:onClick="imageClick" />
-            </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:id="@+id/imageView2"
+                android:src="@drawable/ad_hawk_mascot"
+                android:onClick="imageClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+
+
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -65,9 +106,23 @@
 
     </ViewSwitcher>
 
-    <ScrollView
+
+
+    <ViewSwitcher
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialogSwitch"
+        android:layout_above="@id/buttonProgress"
+        android:measureAllChildren="false"
+        android:id="@+id/imageSelectInformation"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="6dp">
+
+        <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="210dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
@@ -109,14 +164,42 @@
                     android:layout_weight="1"
                     android:hint="Beacon Name" />
             </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageNameContainer"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/image_name"
+                    android:ems="10"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/imageName"
+                    android:layout_weight="1"
+                    android:hint="Image Name" />
+            </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:layout_width="175dp"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/type"
                     android:ems="10"
@@ -124,12 +207,14 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textSize="18sp"  />
 
-                <Spinner
-                    android:layout_width="214dp"
+                <android.support.v7.widget.AppCompatSpinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/type"
                     android:entries="@array/type"
-                    android:dropDownWidth="match_parent" />
+                    android:dropDownWidth="match_parent"
+                    android:spinnerMode="dropdown"/>
 
             </LinearLayout>
 
@@ -185,8 +270,8 @@
                     android:ems="10"
                     android:layout_weight="1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textSize="18sp" />
-
+                    android:textSize="18sp"
+                    android:id="@+id/textView4" />
 
 
                 <EditText
@@ -247,6 +332,7 @@
                     android:id="@+id/postal_code"
                     android:hint="Postal Code" />
             </LinearLayout>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -275,54 +361,48 @@
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rel">
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ViewSwitcher
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/buttonProgress">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pickText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAlignment="center" />
 
             <Button
-                android:layout_gravity="center"
-                android:text="@string/save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/save_edit"
-                android:onClick="save_edit_beacon"
-                android:layout_marginTop="10dp" />
-
-            <LinearLayout
-                android:orientation="vertical"
+                android:text="Pick Previous Registered Image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:onClick="pickFromVuforia" />
 
-                <TextView
-                    android:text="Working..."
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView3"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:textStyle="normal|bold"
-                    android:textSize="18sp" />
+            <Button
+                android:text="Select Image From Gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button3"
+                android:onClick="chooseImage" />
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyleLarge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/progressBarButton"
-                    android:layout_gravity="center"
-                    android:focusable="false"
-                     />
+            <Button
+                android:text="Take A Picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button4"
+                android:onClick="dispatchTakePictureIntent" />
 
-            </LinearLayout>
+            <Button
+                android:text="Cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imagecancel"
+                android:onClick="stopImageSlecetion"/>
 
-        </ViewSwitcher>
+        </LinearLayout>
+
+    </ViewSwitcher>
 
 
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

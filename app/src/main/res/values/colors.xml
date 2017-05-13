@@ -4,5 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="cardBackground">#a0a1ad</color>
-    <color name="revelBlue">#4e59d8</color>
+    <color name="revelBlue">#606be9</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#8a959c</color>
+    <color name="greyDark">#65879c</color>
+    <color name="greyBackground">#E0E0E0</color>
+    <color name="greyBlack">#201f1f</color>
 </resources>

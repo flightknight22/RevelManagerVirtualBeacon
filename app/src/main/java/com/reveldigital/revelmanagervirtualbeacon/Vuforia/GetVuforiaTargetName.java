@@ -1,4 +1,4 @@
-package com.reveldigital.revelmanagervirtualbeacon.vuforia;
+package com.reveldigital.revelmanagervirtualbeacon.Vuforia;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,8 +11,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
-import com.reveldigital.revelmanagervirtualbeacon.Classes.vuforia_image;
+import com.reveldigital.revelmanagervirtualbeacon.Classes.VuforiaImage;
 import com.reveldigital.revelmanagervirtualbeacon.Globals.Globals;
+import com.reveldigital.revelmanagervirtualbeacon.MIsc.ParseFirebaseDatabase;
 
 import java.net.URI;
 import java.util.Date;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
  * Created by Avery Knight on 12/14/2016.
  */
 
-public class Get_Target_Name extends AsyncTask<String, String, String> {
+public class GetVuforiaTargetName extends AsyncTask<String, String, String> {
 
     private String accessKey = Globals.vuforiaApiKey_Access;
     private String secretKey = Globals.vuforiaApiKey_Secret;
@@ -35,7 +36,7 @@ public class Get_Target_Name extends AsyncTask<String, String, String> {
 
 
 
-    public Get_Target_Name(String id) {
+    public GetVuforiaTargetName(String id) {
         this.id = id;
     }
 
@@ -70,12 +71,13 @@ public class Get_Target_Name extends AsyncTask<String, String, String> {
     {
 
         try{
-            Log.d("namecrazy",result);
             JSONObject jsonObject = new JSONObject(result);
             if(jsonObject.getString("result_code").equals("Success")){
                 jsonObject = jsonObject.getJSONObject("target_record");
-                vuforia_image image = Globals.findVuforiaImageById(jsonObject.getString("target_id"));
+                VuforiaImage image = Globals.findVuforiaImageById(jsonObject.getString("target_id"));
                 image.setName(jsonObject.getString("name"));
+                new ParseFirebaseDatabase(image.getName()).execute();
+
             }
         } catch (Exception e){
 

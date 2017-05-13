@@ -1,6 +1,9 @@
 package com.reveldigital.revelmanagervirtualbeacon.Classes;
 
+
 import android.graphics.Bitmap;
+
+import com.reveldigital.api.Device;
 
 /**
  * Created by Avery Knight on 11/28/2016.
@@ -9,6 +12,15 @@ import android.graphics.Bitmap;
 public class Beacon{
     private String name, type, deviceId, regId, city, state, country, postal_code, address, playlist_name, playlist_id;
     private Bitmap displayImage;
+    private Device device;
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device = device;
+    }
 
     public Bitmap getDisplayImage() {
         return displayImage;

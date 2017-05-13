@@ -1,8 +1,7 @@
-package com.reveldigital.revelmanagervirtualbeacon.vuforia;
+package com.reveldigital.revelmanagervirtualbeacon.Vuforia;
 
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -12,9 +11,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
-import com.reveldigital.revelmanagervirtualbeacon.Classes.vuforia_image;
+import com.reveldigital.revelmanagervirtualbeacon.Classes.VuforiaImage;
 import com.reveldigital.revelmanagervirtualbeacon.Globals.Globals;
 import com.reveldigital.revelmanagervirtualbeacon.Interface.IResponder;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +28,7 @@ import org.json.JSONObject;
  * Created by Avery Knight on 12/14/2016.
  */
 
-public class Get_Targets extends AsyncTask<String, String, String> {
+public class GetVuforiaTargetIDs extends AsyncTask<String, String, String> {
 
     private String accessKey = Globals.vuforiaApiKey_Access;
     private String secretKey = Globals.vuforiaApiKey_Secret;
@@ -38,7 +38,7 @@ public class Get_Targets extends AsyncTask<String, String, String> {
 
 
 
-    public Get_Targets() {
+    public GetVuforiaTargetIDs() {
 
     }
 
@@ -52,7 +52,6 @@ public class Get_Targets extends AsyncTask<String, String, String> {
 
             HttpResponse response = client.execute(getRequest);
 
-            Log.d("crazy","made it");
             return EntityUtils.toString(response.getEntity());
 
         } catch (Exception e){
@@ -71,13 +70,14 @@ public class Get_Targets extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result)
     {
-        ArrayList<vuforia_image> imageList = new ArrayList<>();
+        ArrayList<VuforiaImage> imageList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(result);
             JSONArray imageJsnArray = jsonObject.getJSONArray("results");
             for (int i = 0; i < imageJsnArray.length(); i++){
                 String id= imageJsnArray.getString(i);
-                vuforia_image image = new vuforia_image(id);
+                VuforiaImage image = new VuforiaImage(id);
+                new GetVuforiaTargetName(id).execute();
                 imageList.add(image);
             }
         }
@@ -85,11 +85,6 @@ public class Get_Targets extends AsyncTask<String, String, String> {
         }
         if(!imageList.isEmpty()) {
             Globals.vuforiaImagesFullList = imageList;
-
-            for (vuforia_image imageItm : imageList) {
-                Log.d("crazyname",imageItm.getId());
-                new Get_Target_Name(imageItm.getId()).execute();
-            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.reveldigital.revelmanagervirtualbeacon.vuforia;
+package com.reveldigital.revelmanagervirtualbeacon.Vuforia;
 
 public interface TargetStatusListener {
 

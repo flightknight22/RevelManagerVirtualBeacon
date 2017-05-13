@@ -5,8 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.reveldigital.revelmanagervirtualbeacon.Globals.Globals;
-import com.reveldigital.revelmanagervirtualbeacon.Interface.IResponder;
 import com.reveldigital.revelmanagervirtualbeacon.Classes.Beacon;
+import com.reveldigital.revelmanagervirtualbeacon.Interface.IResponderString;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -20,17 +20,18 @@ import java.util.ArrayList;
  * Created by Avery Knight on 12/13/2016.
  */
 
-public class getDevices extends AsyncTask<String, String, String> {
+public class GetRevelDevices extends AsyncTask<String, String, String> {
     OkHttpClient client = new OkHttpClient();
     Context appContext;
-    IResponder responder;
+    IResponderString responder;
     String apiKey;
 
 
-    public getDevices(IResponder r, Context e, String apiKey) {
+    public GetRevelDevices(IResponderString r, Context e, String apiKey) {
         responder = r;
         appContext=e;
         this.apiKey = apiKey;
+        Globals.doneloading = false;
     }
 
     @Override
@@ -40,7 +41,6 @@ public class getDevices extends AsyncTask<String, String, String> {
             Request request = new Request.Builder()
                     .url("http://api.reveldigital.com/devices?api_key="+apiKey+"&device_type_id=ARBeacon")
                     .build();
-
 
             Response response = client.newCall(request).execute();
             if(response.isSuccessful()) {
@@ -79,13 +79,12 @@ public class getDevices extends AsyncTask<String, String, String> {
 
             }
             Globals.beaconFullList = beaconList;
+            Globals.restCallsLeft = beaconList.size();
             for(Beacon beacon:beaconList){
-                if(beacon.getType().equals("QR_BEACON")){
-                    new get_device_info(appContext, beacon.getRegId(), beacon.getDeviceId(), apiKey).execute();
-                }
+                    new GetRevelDeviceInformation(appContext, beacon.getRegId(), beacon.getDeviceId(), apiKey).execute();
             }
         } catch (Exception ignored) {
         }
-        responder.getResults(result);
+        responder.getStringResults(result);
     }
 }

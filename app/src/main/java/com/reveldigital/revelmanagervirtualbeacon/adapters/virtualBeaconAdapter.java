@@ -1,4 +1,4 @@
-package com.reveldigital.revelmanagervirtualbeacon.adapters;
+package com.reveldigital.revelmanagervirtualbeacon.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.reveldigital.revelmanagervirtualbeacon.Classes.Beacon;
 import com.reveldigital.revelmanagervirtualbeacon.Globals.Globals;
 import com.reveldigital.revelmanagervirtualbeacon.R;
-import com.reveldigital.revelmanagervirtualbeacon.Activities.create_edit_beacons;
+import com.reveldigital.revelmanagervirtualbeacon.Activities.CreateEditBeaconsActivity;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Created by Avery Knight on 11/28/2016.
  */
 
-public class virtualBeaconAdapter extends RecyclerView.Adapter<virtualBeaconAdapter.MyViewHolder> {
+public class VirtualBeaconAdapter extends RecyclerView.Adapter<VirtualBeaconAdapter.MyViewHolder> {
     private ArrayList<Beacon> beaconList;
     private Context context;
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -36,7 +36,7 @@ public class virtualBeaconAdapter extends RecyclerView.Adapter<virtualBeaconAdap
             container = (CardView) view.findViewById(R.id.cardview);
         }
     }
-    public virtualBeaconAdapter(ArrayList<Beacon> beaconList, Context context){
+    public VirtualBeaconAdapter(ArrayList<Beacon> beaconList, Context context){
         this.beaconList = beaconList;
         this.context = context;
     }
@@ -52,16 +52,18 @@ public class virtualBeaconAdapter extends RecyclerView.Adapter<virtualBeaconAdap
 
         final Beacon beacon = beaconList.get(position);
         holder.beaconName.setText(beacon.getName());
-        holder.type.setText(beacon.getType());
+
         if(beacon.getType().equals("AR_BEACON")){
+            holder.type.setText("Image Beacon");
             holder.imageView.setImageResource(R.drawable.ad_hawk_mascot);
         }else{
+            holder.type.setText("QR Code Beacon");
             holder.imageView.setImageResource(R.drawable.revel_qr);
         }
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,create_edit_beacons.class);
+                Intent intent = new Intent(context,CreateEditBeaconsActivity.class);
                 intent.putExtra(Globals.isMade,true);
                 intent.putExtra(Globals.deviceID,beacon.getDeviceId());
                 context.startActivity(intent);

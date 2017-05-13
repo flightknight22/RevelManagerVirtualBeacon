@@ -1,10 +1,9 @@
-package com.reveldigital.revelmanagervirtualbeacon.vuforia;
+package com.reveldigital.revelmanagervirtualbeacon.Vuforia;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.reveldigital.revelmanagervirtualbeacon.Classes.vuforia_image;
 import com.reveldigital.revelmanagervirtualbeacon.Globals.Globals;
+import com.reveldigital.revelmanagervirtualbeacon.Interface.IResponder;
 
 
 import org.apache.commons.codec.android.binary.Base64;
@@ -31,20 +30,24 @@ import java.util.Date;
  * Created by Avery Knight on 12/15/2016.
  */
 
-public class Post_Img_Target extends AsyncTask<String, String, String>{
+public class UploadImageToVuforia extends AsyncTask<String, String, String>{
 
     private String accessKey = Globals.vuforiaApiKey_Access;
     private String secretKey = Globals.vuforiaApiKey_Secret;
     private String url = "https://vws.vuforia.com";
     private String targetName;
     private String imageLocation;
+    IResponder r;
+
     private TargetStatusPoller targetStatusPoller;
 
     private final float pollingIntervalMinutes = 60;//poll at 1-hour interval
 
-    public Post_Img_Target(String imageLocation, String targetName) {
+    public UploadImageToVuforia(String imageLocation, String targetName, IResponder r) {
         this.imageLocation = imageLocation;
         this.targetName = targetName;
+        this.r = r;
+
     }
 
 
@@ -65,7 +68,11 @@ public class Post_Img_Target extends AsyncTask<String, String, String>{
             System.out.println("target: " + responseBody);
 
             JSONObject jobj = new JSONObject(responseBody);
-            Log.d("crazystuff", jobj.toString());
+            if(jobj.has("result_code")){
+                if(jobj.getString("result_code").equals("TargetNameExist")){
+                    return "TargetNameExist";
+                }
+            }
             String uniqueTargetId = jobj.has("target_id") ? jobj.getString("target_id") : "";
             System.out.println("\nCreated target with id: " + uniqueTargetId);
 
@@ -109,17 +116,15 @@ public class Post_Img_Target extends AsyncTask<String, String, String>{
 
     @Override
     protected void onPostExecute(String result) {
-
-        try {
-            Log.d("namecrazy", result);
-            JSONObject jsonObject = new JSONObject(result);
-            if (jsonObject.getString("result_code").equals("Success")) {
-                jsonObject = jsonObject.getJSONObject("target_record");
-                vuforia_image image = Globals.findVuforiaImageById(jsonObject.getString("target_id"));
-                image.setName(jsonObject.getString("name"));
+        if(result!=null){
+            r.getVuforiaUploadResults(result);
+            if(result!="TargetNameExist") {
+                new FindVuforiaImageDuplicates(result, r).execute();
             }
-        } catch (Exception e) {
-
+        } else {
+            r.getVuforiaUploadResults(null);
         }
+
+
     }
 }

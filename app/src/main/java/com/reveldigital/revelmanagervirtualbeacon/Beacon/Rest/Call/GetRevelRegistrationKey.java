@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.reveldigital.revelmanagervirtualbeacon.Classes.Beacon;
 import com.reveldigital.revelmanagervirtualbeacon.Globals.Globals;
+import com.reveldigital.revelmanagervirtualbeacon.Interface.IResponder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -16,14 +17,13 @@ import org.json.JSONObject;
  * Created by Avery Knight on 12/15/2016.
  */
 
-public class get_reg_key extends AsyncTask<String, String, String> {
+public class GetRevelRegistrationKey extends AsyncTask<String, String, String> {
     OkHttpClient client = new OkHttpClient();
     String apiKey, deviceID;
-    IResponderRegKey responder;
+    IResponder responder;
 
 
-    public get_reg_key(IResponderRegKey r) {
-        responder = r;
+    public GetRevelRegistrationKey(IResponder r) {responder = r;
     }
 
     @Override

@@ -16,13 +16,12 @@ import org.json.JSONObject;
  * Created by Avery Knight on 12/13/2016.
  */
 
-public class get_device_info extends AsyncTask<String, String, String> {
+public class GetRevelDeviceInformation extends AsyncTask<String, String, String> {
     OkHttpClient client = new OkHttpClient();
     Context appContext;
     String regKey, deviceID, apiKey;
 
-
-    public get_device_info(Context e, String regKey, String deviceID, String apiKey) {
+    public GetRevelDeviceInformation(Context e, String regKey, String deviceID, String apiKey) {
         appContext=e;
         this.regKey = regKey;
         this.deviceID = deviceID;
@@ -35,6 +34,7 @@ public class get_device_info extends AsyncTask<String, String, String> {
         Log.d("DoInBackground","Made It");
         Log.d("DoInBackground",regKey);
         try {
+            //updatedDevice=null;
 
             Request request = new Request.Builder()
                     .url("http://svc1.reveldigital.com/v2/device/schedule/get/"+regKey+"?format=json")
@@ -49,12 +49,15 @@ public class get_device_info extends AsyncTask<String, String, String> {
         }
         catch(Exception e)
         {
+            Log.e("DoInTheBackGround","Didn't make it far");
+            e.printStackTrace();
         }
         return null;
     }
     @Override
     protected void onPostExecute(String result)
     {
+
         if(result==null){
            result = "Nothing";
         }
@@ -69,13 +72,22 @@ public class get_device_info extends AsyncTask<String, String, String> {
                     String playlist_id = playlist_info.getString("id");
                     String playlist_name = playlist_info.getString("name");
                     if(!playlist_id.equals("10855")){
-                        Beacon beacon = Globals.findBeaconByID(deviceID);
+                        Beacon beacon = Globals.pop(deviceID);
+
                         beacon.setPlaylist_name(playlist_name);
-                        new get_playlist_id(deviceID,apiKey).execute();
+                        Globals.beaconFullList.add(beacon);
+                        new GetRevelPlaylistID(deviceID,apiKey).execute();
+                    } else {
+                        Globals.restCallsLeft = Globals.restCallsLeft - 1;
+                        Log.d("Rest Calls Left 2",String.valueOf(Globals.restCallsLeft));
+                        if(Globals.restCallsLeft==0){
+                            Globals.doneloading = true;
+                        }
                     }
                 }
             }
         } catch (Exception e){
+            e.printStackTrace();
             Log.d("DoInBackground","There Was A Problem");
         }
     }

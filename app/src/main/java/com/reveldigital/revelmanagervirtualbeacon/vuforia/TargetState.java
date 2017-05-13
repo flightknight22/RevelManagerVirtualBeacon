@@ -1,4 +1,4 @@
-package com.reveldigital.revelmanagervirtualbeacon.vuforia;
+package com.reveldigital.revelmanagervirtualbeacon.Vuforia;
 
 import org.json.JSONException;
 import org.json.JSONObject;

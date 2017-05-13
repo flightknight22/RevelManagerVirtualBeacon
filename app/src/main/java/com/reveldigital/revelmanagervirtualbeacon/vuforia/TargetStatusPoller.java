@@ -1,4 +1,4 @@
-package com.reveldigital.revelmanagervirtualbeacon.vuforia;
+package com.reveldigital.revelmanagervirtualbeacon.Vuforia;
 
 import java.io.IOException;
 import java.net.URI;
