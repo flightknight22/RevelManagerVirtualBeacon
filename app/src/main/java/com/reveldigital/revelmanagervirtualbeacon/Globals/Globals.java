@@ -16,11 +16,11 @@ public class Globals {
     public static Boolean hasKeys = false;
 
 
-    public static String vuforiaApiKey_Access="7b4e9eeae5246e63aca1ca1c4ee04e78ec4dddac";
-    public static String vuforiaApiKey_Secret="bbc18df2651954c8e3c2ddad5208da46babc10d6";
+    public static String vuforiaApiKey_Access;//"7b4e9eeae5246e63aca1ca1c4ee04e78ec4dddac";
+    public static String vuforiaApiKey_Secret;//"bbc18df2651954c8e3c2ddad5208da46babc10d6";
 
-    public static String vuforiaApiKey_Access_cleint="d903db9e786a7c75dab1fb009679a2d3c8a8da0f";
-    public static String vuforiaApiKey_Secret_client="dbb4065df1359a18f99132833c2667d588843e8c";
+    public static String vuforiaApiKey_Access_cleint;//"d903db9e786a7c75dab1fb009679a2d3c8a8da0f";
+    public static String vuforiaApiKey_Secret_client;//"dbb4065df1359a18f99132833c2667d588843e8c";
 
     public static String sharedPreferenceName = "prefs";
     public static String apiKey = "apiKey";

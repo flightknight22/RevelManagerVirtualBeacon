@@ -178,7 +178,16 @@ public class MainActivity extends AppCompatActivity implements IResponderString 
     @Override
     public void getStringResults(String results) {
         if(results!=null){
+            if("noTags"==results){
+                Toast.makeText(this, "No Image Database Keys Found. Please Contact Revel Support", Toast.LENGTH_LONG).show();
+            }
+            else if("keyIssue"==results){
+                Toast.makeText(this, "Image Database Keys Are Not The Correct Length. Please Conatact Revel Support", Toast.LENGTH_LONG).show();
+            }
             mAdapter.swap();
+        }
+        else {
+            Toast.makeText(this, "There was an issue. The API KEY entered may not be correct.", Toast.LENGTH_SHORT).show();
         }
     }
 }

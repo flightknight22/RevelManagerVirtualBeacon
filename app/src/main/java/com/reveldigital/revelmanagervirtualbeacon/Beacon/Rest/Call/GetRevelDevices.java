@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.reveldigital.revelmanagervirtualbeacon.Globals.Globals;
 import com.reveldigital.revelmanagervirtualbeacon.Classes.Beacon;
 import com.reveldigital.revelmanagervirtualbeacon.Interface.IResponderString;
@@ -15,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Avery Knight on 12/13/2016.
@@ -37,7 +39,53 @@ public class GetRevelDevices extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            Log.d("Do In Back","Made It");
+            Log.d("Do In Back","Made It to: "+getClass());
+            Request accountInfoRequest = new Request.Builder()
+                    .url("http://api.reveldigital.com/account?api_key="+apiKey)
+                    .build();
+
+            Response accountInfoResponse = client.newCall(accountInfoRequest).execute();
+            if(accountInfoResponse.isSuccessful()) {
+                try {
+                    JSONObject jsnObj = new JSONObject(accountInfoResponse.body().string());
+                    if(jsnObj.getString("tags")!=null) {
+                        JSONObject accountInfo = new JSONObject(jsnObj.getString("tags"));
+                        int distance = accountInfo.getInt("Distance");
+                        accountInfo = accountInfo.getJSONObject("vuforia info");
+                        Iterator<?> keys = accountInfo.keys();
+                        while(keys.hasNext() ) {
+                            String key = (String)keys.next();
+                            if(accountInfo.getString(key).length()<10){
+                                return "keyIssue";
+                            }
+
+                        }
+                        String caKey, csKey, ssKey, saKey;
+                        caKey = accountInfo.getString("caKey");
+                        csKey = accountInfo.getString("csKey");
+                        saKey = accountInfo.getString("saKey");
+                        ssKey = accountInfo.getString("ssKey");
+
+                        Globals.vuforiaApiKey_Access =saKey;
+                        Globals.vuforiaApiKey_Secret=ssKey;
+
+                        Globals.vuforiaApiKey_Access_cleint=caKey;
+                        Globals.vuforiaApiKey_Secret_client=csKey;
+
+                    } else {
+                        return "noTags";
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    return null;
+                }
+
+
+            } else {
+                return null;
+            }
+
             Request request = new Request.Builder()
                     .url("http://api.reveldigital.com/devices?api_key="+apiKey+"&device_type_id=ARBeacon")
                     .build();

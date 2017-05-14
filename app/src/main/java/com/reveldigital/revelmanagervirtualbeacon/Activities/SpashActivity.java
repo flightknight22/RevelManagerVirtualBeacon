@@ -133,7 +133,14 @@ public class SpashActivity extends AppCompatActivity implements IResponderString
     @Override
     public void getStringResults(String results) {
         if(results!=null) {
-            goToMain();
+            if("noTags"==results){
+                Toast.makeText(this, "No Image Database Keys Found. Please Contact Revel Support", Toast.LENGTH_LONG).show();
+            }
+            else if("keyIssue"==results){
+                Toast.makeText(this, "Image Database Keys Are Not The Correct Length. Please Conatact Revel Support", Toast.LENGTH_LONG).show();
+            }else {
+                goToMain();
+            }
         }else {
             Toast.makeText(this, "Something Went Wrong. Please Check API KEY And Try Again.", Toast.LENGTH_SHORT).show();
             viewSwitcher.showNext();
