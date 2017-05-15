@@ -135,9 +135,11 @@ public class SpashActivity extends AppCompatActivity implements IResponderString
         if(results!=null) {
             if("noTags"==results){
                 Toast.makeText(this, "No Image Database Keys Found. Please Contact Revel Support", Toast.LENGTH_LONG).show();
+                viewSwitcher.showNext();
             }
             else if("keyIssue"==results){
                 Toast.makeText(this, "Image Database Keys Are Not The Correct Length. Please Conatact Revel Support", Toast.LENGTH_LONG).show();
+                viewSwitcher.showNext();
             }else {
                 goToMain();
             }
